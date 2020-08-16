@@ -5,5 +5,5 @@
         Female,
         Male,
         Other
-    } 
+    }
 }

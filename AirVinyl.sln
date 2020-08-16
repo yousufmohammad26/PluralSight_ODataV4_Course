@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30406.217
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirVinyl.Model", "AirVinyl.Model\AirVinyl.Model.csproj", "{948C803E-7334-4591-90F2-0AD8F3B1FCB7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirVinyl.DataAccessLayer", "AirVinyl.DataAccessLayer\AirVinyl.DataAccessLayer.csproj", "{F8B46C2B-6DFA-42AB-8860-96A6457BF85E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirVinyl.API", "AirVinyl.API\AirVinyl.API.csproj", "{931CBC26-4475-4C19-80B4-F60616AE35EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,8 +23,15 @@ Global
 		{F8B46C2B-6DFA-42AB-8860-96A6457BF85E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8B46C2B-6DFA-42AB-8860-96A6457BF85E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8B46C2B-6DFA-42AB-8860-96A6457BF85E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{931CBC26-4475-4C19-80B4-F60616AE35EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{931CBC26-4475-4C19-80B4-F60616AE35EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{931CBC26-4475-4C19-80B4-F60616AE35EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{931CBC26-4475-4C19-80B4-F60616AE35EB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {ABB76645-7ED3-4BC2-8FFF-6F9DDBF57AE7}
 	EndGlobalSection
 EndGlobal

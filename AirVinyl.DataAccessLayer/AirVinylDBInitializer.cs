@@ -1,39 +1,38 @@
-﻿using AirVinyl.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using AirVinyl.Model;
 
 namespace AirVinyl.DataAccessLayer
 {
-
     // Note: to avoid recreation of the DB, use DropCreateDatabaseIfModelChanges<AirVinylDbContext>  
-    public class AirVinylDBInitializer : DropCreateDatabaseAlways<AirVinylDbContext> 
+    public class AirVinylDBInitializer : DropCreateDatabaseAlways<AirVinylDbContext>
     {
         protected override void Seed(AirVinylDbContext context)
         {
             // PressingDetail 
-            var pressingDetailAudiophileLP = new PressingDetail()
+            var pressingDetailAudiophileLP = new PressingDetail
             {
                 Description = "Audiophile LP",
                 Grams = 180,
                 Inches = 12
             };
 
-            var pressingDetailRegularLP = new PressingDetail()
+            var pressingDetailRegularLP = new PressingDetail
             {
                 Description = "Regular LP",
                 Grams = 140,
                 Inches = 12
             };
 
-            var pressingDetailAudiophileSingle = new PressingDetail()
+            var pressingDetailAudiophileSingle = new PressingDetail
             {
                 Description = "Audiophile Single",
                 Grams = 50,
                 Inches = 7
             };
 
-            var pressingDetailRegularSingle = new PressingDetail()
+            var pressingDetailRegularSingle = new PressingDetail
             {
                 Description = "Regular Single",
                 Grams = 40,
@@ -46,7 +45,7 @@ namespace AirVinyl.DataAccessLayer
             context.PressingDetails.Add(pressingDetailRegularSingle);
 
             // Person
-            var personKevin = new Person()
+            var personKevin = new Person
             {
                 DateOfBirth = new DateTimeOffset(new DateTime(1981, 5, 5)),
                 Email = "kevin@kevindockx.com",
@@ -57,7 +56,7 @@ namespace AirVinyl.DataAccessLayer
                 AmountOfCashToSpend = 300
             };
 
-            var personSven = new Person()
+            var personSven = new Person
             {
                 DateOfBirth = new DateTimeOffset(new DateTime(1986, 3, 6)),
                 Email = "sven@someemailprovider.com",
@@ -68,7 +67,7 @@ namespace AirVinyl.DataAccessLayer
                 AmountOfCashToSpend = 2000
             };
 
-            var personNils = new Person()
+            var personNils = new Person
             {
                 DateOfBirth = new DateTimeOffset(new DateTime(1983, 5, 18)),
                 Email = "nils@someemailprovider.com",
@@ -79,7 +78,7 @@ namespace AirVinyl.DataAccessLayer
                 AmountOfCashToSpend = 2500
             };
 
-            var personBob = new Person()
+            var personBob = new Person
             {
                 DateOfBirth = new DateTimeOffset(new DateTime(1981, 10, 25)),
                 Email = "bob@someemailprovider.com",
@@ -90,7 +89,7 @@ namespace AirVinyl.DataAccessLayer
                 AmountOfCashToSpend = 200
             };
 
-            var personTim = new Person()
+            var personTim = new Person
             {
                 DateOfBirth = new DateTimeOffset(new DateTime(1981, 10, 15)),
                 Email = "tim@someemailprovider.com",
@@ -101,7 +100,7 @@ namespace AirVinyl.DataAccessLayer
                 AmountOfCashToSpend = 90
             };
 
-            var personNele = new Person()
+            var personNele = new Person
             {
                 DateOfBirth = new DateTimeOffset(new DateTime(1977, 12, 27)),
                 Email = "nele@someemailprovider.com",
@@ -112,7 +111,7 @@ namespace AirVinyl.DataAccessLayer
                 AmountOfCashToSpend = 100
             };
 
-            var personKenneth = new Person()
+            var personKenneth = new Person
             {
                 DateOfBirth = new DateTimeOffset(new DateTime(1981, 1, 16)),
                 Email = null,
@@ -125,78 +124,13 @@ namespace AirVinyl.DataAccessLayer
 
 
             // Add friends & records for Kevin
-            personKevin.Friends = new List<Person>()
+            personKevin.Friends = new List<Person>
             {
                 personSven, personNils, personTim
             };
-            personKevin.VinylRecords = new List<VinylRecord>()
+            personKevin.VinylRecords = new List<VinylRecord>
             {
-                new VinylRecord()
-                {
-                    Artist = "Nirvana",
-                    Title = "Nevermind",
-                    CatalogNumber = "ABC/111",
-                    PressingDetail = pressingDetailAudiophileLP,
-                    Year= 1991
-                },
-                new VinylRecord()
-                {
-                    Artist = "Arctic Monkeys",
-                    Title = "AM",
-                    CatalogNumber = "EUI/111",
-                    PressingDetail = pressingDetailAudiophileLP,
-                    Year = 2013
-                },
-                new VinylRecord()
-                {
-                    Artist = "Beatles",
-                    Title = "The White Album",
-                    CatalogNumber = "DEI/113",
-                    PressingDetail = pressingDetailRegularLP,
-                    Year = 1968
-                },
-                new VinylRecord()
-                {
-                    Artist = "Beatles",
-                    Title = "Sergeant Pepper's Lonely Hearts Club Band",
-                    CatalogNumber = "DPI/123",
-                    PressingDetail = pressingDetailRegularLP,
-                    Year = 1967
-                },
-                new VinylRecord()
-                {
-                    Artist = "Nirvana",
-                    Title = "Bleach",
-                    CatalogNumber = "DPI/123",
-                    PressingDetail = pressingDetailRegularLP,
-                    Year = 1989
-                },
-                new VinylRecord()
-                {
-                    Artist = "Leonard Cohen",
-                    Title = "Suzanne",
-                    CatalogNumber = "PPP/783",
-                    PressingDetail = pressingDetailRegularSingle,
-                    Year = 1967
-                },
-                new VinylRecord()
-                {
-                    Artist = "Marvin Gaye",
-                    Title = "What's Going On",
-                    CatalogNumber = "MVG/445",
-                    PressingDetail = pressingDetailRegularLP,
-                    Year = null
-                },
-            };
-
-            // get Sven, add friends & records
-            personSven.Friends = new List<Person>()
-            {
-                personKevin, personNils, personTim, personNele
-            };
-            personSven.VinylRecords = new List<VinylRecord>()
-            {
-                new VinylRecord()
+                new VinylRecord
                 {
                     Artist = "Nirvana",
                     Title = "Nevermind",
@@ -204,7 +138,72 @@ namespace AirVinyl.DataAccessLayer
                     PressingDetail = pressingDetailAudiophileLP,
                     Year = 1991
                 },
-                new VinylRecord()
+                new VinylRecord
+                {
+                    Artist = "Arctic Monkeys",
+                    Title = "AM",
+                    CatalogNumber = "EUI/111",
+                    PressingDetail = pressingDetailAudiophileLP,
+                    Year = 2013
+                },
+                new VinylRecord
+                {
+                    Artist = "Beatles",
+                    Title = "The White Album",
+                    CatalogNumber = "DEI/113",
+                    PressingDetail = pressingDetailRegularLP,
+                    Year = 1968
+                },
+                new VinylRecord
+                {
+                    Artist = "Beatles",
+                    Title = "Sergeant Pepper's Lonely Hearts Club Band",
+                    CatalogNumber = "DPI/123",
+                    PressingDetail = pressingDetailRegularLP,
+                    Year = 1967
+                },
+                new VinylRecord
+                {
+                    Artist = "Nirvana",
+                    Title = "Bleach",
+                    CatalogNumber = "DPI/123",
+                    PressingDetail = pressingDetailRegularLP,
+                    Year = 1989
+                },
+                new VinylRecord
+                {
+                    Artist = "Leonard Cohen",
+                    Title = "Suzanne",
+                    CatalogNumber = "PPP/783",
+                    PressingDetail = pressingDetailRegularSingle,
+                    Year = 1967
+                },
+                new VinylRecord
+                {
+                    Artist = "Marvin Gaye",
+                    Title = "What's Going On",
+                    CatalogNumber = "MVG/445",
+                    PressingDetail = pressingDetailRegularLP,
+                    Year = null
+                }
+            };
+
+            // get Sven, add friends & records
+            personSven.Friends = new List<Person>
+            {
+                personKevin, personNils, personTim, personNele
+            };
+            personSven.VinylRecords = new List<VinylRecord>
+            {
+                new VinylRecord
+                {
+                    Artist = "Nirvana",
+                    Title = "Nevermind",
+                    CatalogNumber = "ABC/111",
+                    PressingDetail = pressingDetailAudiophileLP,
+                    Year = 1991
+                },
+                new VinylRecord
                 {
                     Artist = "Cher",
                     Title = "Closer to the Truth",
@@ -212,35 +211,35 @@ namespace AirVinyl.DataAccessLayer
                     PressingDetail = pressingDetailRegularLP,
                     Year = 2013
                 }
-             };
+            };
 
             // get Nils, add friends & records
-            personNils.Friends = new List<Person>()
+            personNils.Friends = new List<Person>
             {
                 personSven, personKevin, personBob, personKenneth
             };
-            personNils.VinylRecords = new List<VinylRecord>()
+            personNils.VinylRecords = new List<VinylRecord>
             {
-                new VinylRecord()
+                new VinylRecord
                 {
                     Artist = "Justin Bieber",
                     Title = "Baby",
                     CatalogNumber = "OOP/098",
                     PressingDetail = pressingDetailAudiophileSingle
                 },
-                new VinylRecord()
+                new VinylRecord
                 {
                     Artist = "The Prodigy",
                     Title = "Music for the Jilted Generation",
                     CatalogNumber = "NBE/864",
                     PressingDetail = pressingDetailRegularLP
                 }
-             };
+            };
 
             // get Bob, add records
-            personBob.VinylRecords = new List<VinylRecord>()
+            personBob.VinylRecords = new List<VinylRecord>
             {
-                new VinylRecord()
+                new VinylRecord
                 {
                     Artist = "Arctic Monkeys",
                     Title = "Favourite Worst Nightmare",
@@ -251,66 +250,66 @@ namespace AirVinyl.DataAccessLayer
 
 
             // get Tim, add friends & records
-            personTim.Friends = new List<Person>()
+            personTim.Friends = new List<Person>
             {
                 personNele, personKenneth, personNils
             };
-            personTim.VinylRecords = new List<VinylRecord>()
+            personTim.VinylRecords = new List<VinylRecord>
             {
-                new VinylRecord()
+                new VinylRecord
                 {
                     Artist = "Anne Clarke",
                     Title = "Our Darkness",
                     CatalogNumber = "TII/339",
                     PressingDetail = pressingDetailAudiophileSingle
                 },
-                new VinylRecord()
+                new VinylRecord
                 {
                     Artist = "Dead Kennedys",
                     Title = "Give Me Convenience or Give Me Death",
                     CatalogNumber = "DKE/864",
                     PressingDetail = pressingDetailRegularLP
                 },
-                new VinylRecord()
+                new VinylRecord
                 {
                     Artist = "Sisters of Mercy",
                     Title = "Temple of Love",
                     CatalogNumber = "IIE/824",
                     PressingDetail = pressingDetailRegularSingle
                 }
-             };
+            };
 
             // get Nele, add friends & records
-            personNele.Friends = new List<Person>()
+            personNele.Friends = new List<Person>
             {
                 personTim, personKenneth, personSven
             };
-            personNele.VinylRecords = new List<VinylRecord>()
+            personNele.VinylRecords = new List<VinylRecord>
             {
-                new VinylRecord()
+                new VinylRecord
                 {
                     Artist = "The Dandy Warhols",
                     Title = "Thirteen Tales From Urban Bohemia",
                     CatalogNumber = "TDW/516",
                     PressingDetail = pressingDetailRegularLP
                 }
-             };
+            };
 
             // get Kenneth, add friends & records
-            personKenneth.Friends = new List<Person>()
+            personKenneth.Friends = new List<Person>
             {
                 personTim, personKevin, personSven
             };
-            personKenneth.VinylRecords = new List<VinylRecord>()
+            personKenneth.VinylRecords = new List<VinylRecord>
             {
-                new VinylRecord()
+                new VinylRecord
                 {
                     Artist = "Abba",
                     Title = "Gimme Gimme Gimme",
                     CatalogNumber = "TDW/516",
                     PressingDetail = pressingDetailRegularSingle
                 }
-             };
+            };
 
             context.People.Add(personKevin);
             context.People.Add(personSven);
@@ -322,78 +321,85 @@ namespace AirVinyl.DataAccessLayer
             context.People.Add(personTim);
 
             // RecordStore
-            var recordStores = new List<RecordStore>()
+            var recordStores = new List<RecordStore>
             {
-                new SpecializedRecordStore()
+                new SpecializedRecordStore
                 {
                     Name = "Indie Records, Inc",
-                    StoreAddress = new Address()
+                    StoreAddress = new Address
                     {
                         City = "Antwerp",
                         PostalCode = "2000",
                         Street = "1, Main Street",
                         Country = "Belgium"
                     },
-                    Tags = new List<string>() {"Rock", "Indie", "Alternative"},
-                    Ratings = new List<Rating>()
+                    Tags = new List<string> {"Rock", "Indie", "Alternative"},
+                    Ratings = new List<Rating>
                     {
-                        new Rating() {
+                        new Rating
+                        {
                             RatedBy = personKevin,
                             Value = 5
                         },
-                        new Rating() {
+                        new Rating
+                        {
                             RatedBy = personSven,
                             Value = 4
                         }
                     },
                     Specialization = "Indie"
                 },
-                 new SpecializedRecordStore()
+                new SpecializedRecordStore
                 {
                     Name = "Rock Records, Inc",
-                    StoreAddress = new Address()
+                    StoreAddress = new Address
                     {
                         City = "Antwerp",
                         PostalCode = "2000",
                         Street = "5, Big Street",
                         Country = "Belgium"
                     },
-                    Tags = new List<string>() {"Rock", "Pop"},
-                    Ratings = new List<Rating>()
+                    Tags = new List<string> {"Rock", "Pop"},
+                    Ratings = new List<Rating>
                     {
-                        new Rating() {
+                        new Rating
+                        {
                             RatedBy = personKevin,
                             Value = 5
                         },
-                        new Rating() {
+                        new Rating
+                        {
                             RatedBy = personSven,
                             Value = 4
                         }
                     },
                     Specialization = "Rock"
                 },
-                new RecordStore()
+                new RecordStore
                 {
                     Name = "All Your Music Needs",
-                    StoreAddress = new Address()
+                    StoreAddress = new Address
                     {
                         City = "Antwerp",
                         PostalCode = "2000",
                         Street = "25, Fluffy Road",
                         Country = "Belgium"
                     },
-                    Tags = new List<string>() {"Rock", "Pop", "Indie", "Alternative" },
-                    Ratings = new List<Rating>()
+                    Tags = new List<string> {"Rock", "Pop", "Indie", "Alternative"},
+                    Ratings = new List<Rating>
                     {
-                        new Rating() {
+                        new Rating
+                        {
                             RatedBy = personKevin,
                             Value = 4
                         },
-                        new Rating() {
+                        new Rating
+                        {
                             RatedBy = personSven,
                             Value = 4
                         },
-                        new Rating() {
+                        new Rating
+                        {
                             RatedBy = personNele,
                             Value = 4
                         }

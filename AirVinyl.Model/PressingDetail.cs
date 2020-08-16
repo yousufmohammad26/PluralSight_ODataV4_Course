@@ -4,17 +4,12 @@ namespace AirVinyl.Model
 {
     public class PressingDetail
     {
-        [Key] 
-        public int PressingDetailId { get; set; }
- 
-        [Required]
-        public int Grams { get; set; }
+        [Key] public int PressingDetailId { get; set; }
 
-        [Required]
-        public int Inches { get; set; }
+        [Required] public int Grams { get; set; }
 
-        [Required]
-        [StringLength(200)]
-        public string Description { get; set; }
+        [Required] public int Inches { get; set; }
+
+        [Required] [StringLength(200)] public string Description { get; set; }
     }
 }

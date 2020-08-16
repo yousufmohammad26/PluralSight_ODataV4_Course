@@ -6,26 +6,17 @@ namespace AirVinyl.Model
 {
     public class Person
     {
-        [Key]
-        public int PersonId { get; set; }
-        
-        [StringLength(100)]    
-        public string Email { get; set; }
+        [Key] public int PersonId { get; set; }
 
-        [Required]
-        [StringLength(50)]
-        public string FirstName { get; set; }
+        [StringLength(100)] public string Email { get; set; }
 
-        [Required]
-        [StringLength(50)]
-        public string LastName { get; set; }
+        [Required] [StringLength(50)] public string FirstName { get; set; }
 
-        [Required]
-        [DataType(DataType.Date)]
-        public DateTimeOffset DateOfBirth { get; set; }
+        [Required] [StringLength(50)] public string LastName { get; set; }
 
-        [Required]
-        public Gender Gender { get; set; }
+        [Required] [DataType(DataType.Date)] public DateTimeOffset DateOfBirth { get; set; }
+
+        [Required] public Gender Gender { get; set; }
 
         public int NumberOfRecordsOnWishList { get; set; }
 

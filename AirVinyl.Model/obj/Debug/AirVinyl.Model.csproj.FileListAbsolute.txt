@@ -1,0 +1,5 @@
+C:\Users\yousu\Source\Repos\PluralSight_ODataV4_Course\AirVinyl.Model\bin\Debug\AirVinyl.Model.dll
+C:\Users\yousu\Source\Repos\PluralSight_ODataV4_Course\AirVinyl.Model\bin\Debug\AirVinyl.Model.pdb
+C:\Users\yousu\Source\Repos\PluralSight_ODataV4_Course\AirVinyl.Model\obj\Debug\AirVinyl.Model.csproj.CoreCompileInputs.cache
+C:\Users\yousu\Source\Repos\PluralSight_ODataV4_Course\AirVinyl.Model\obj\Debug\AirVinyl.Model.dll
+C:\Users\yousu\Source\Repos\PluralSight_ODataV4_Course\AirVinyl.Model\obj\Debug\AirVinyl.Model.pdb
