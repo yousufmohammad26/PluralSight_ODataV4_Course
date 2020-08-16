@@ -15,16 +15,23 @@ namespace AirVinyl.API.Controllers
     {
         private readonly AirVinylDbContext _ctx = new AirVinylDbContext();
 
+        [EnableQuery(MaxExpansionDepth = 3, MaxSkip = 10, MaxTop = 5, PageSize = 4)]
         public IHttpActionResult Get()
         {
             return Ok(_ctx.People);
         }
 
+        [EnableQuery]
         public IHttpActionResult Get([FromODataUri] int key)
         {
-            var person = _ctx.People.Include(p => p.Friends).Include(p => p.VinylRecords).FirstOrDefault(p => p.PersonId == key);
-            if (person == null) return NotFound();
-            return Ok(person);
+            //var person = _ctx.People.Include(p => p.Friends).Include(p => p.VinylRecords).FirstOrDefault(p => p.PersonId == key);
+            //if (person == null) return NotFound();
+            //return Ok(person);
+
+            var people = _ctx.People.Where(p => p.PersonId == key);
+            if (people.Any() == false) return NotFound();
+
+            return Ok(SingleResult.Create(people));
         }
 
         [HttpGet]
@@ -48,11 +55,24 @@ namespace AirVinyl.API.Controllers
         }
 
         [HttpGet]
-        [ODataRoute("People({key})/Friends")]
         [ODataRoute("People({key})/VinylRecords")]
+        [EnableQuery]
+        public IHttpActionResult GetVinylRecordsForPerson([FromODataUri] int key)
+        {
+            var person = _ctx.People.FirstOrDefault(p => p.PersonId == key);
+            if (person == null) return NotFound();
+
+            return Ok(_ctx.VinylRecords.Where(v => v.Person.PersonId == key));
+        }
+
+        [HttpGet]
+        [ODataRoute("People({key})/Friends")]
+        //[ODataRoute("People({key})/VinylRecords")]
+        [EnableQuery]
         public IHttpActionResult GetPersonCollectionProperty([FromODataUri] int key)
         {
-            var person = _ctx.People.Include(p => p.Friends).Include(p => p.VinylRecords).FirstOrDefault(p => p.PersonId == key);
+            var person = _ctx.People.Include(p => p.Friends).Include(p => p.VinylRecords)
+                .FirstOrDefault(p => p.PersonId == key);
             if (person == null) return NotFound();
 
             var collectionPropertyToGet = Url.Request.RequestUri.Segments.Last();
@@ -130,10 +150,7 @@ namespace AirVinyl.API.Controllers
                 .Include(p => p.Friends)
                 .Where(p => p.Friends.Select(f => f.PersonId).AsQueryable().Contains(key));
 
-            foreach (var person in peopleWithCurrentPersonAsFriends)
-            {
-                person.Friends.Remove(currentPerson);
-            }
+            foreach (var person in peopleWithCurrentPersonAsFriends) person.Friends.Remove(currentPerson);
 
             _ctx.People.Remove(currentPerson);
             _ctx.SaveChanges();
@@ -149,12 +166,11 @@ namespace AirVinyl.API.Controllers
             var currentPerson = _ctx.People.Include(p => p.Friends).FirstOrDefault(p => p.PersonId == key);
             if (currentPerson == null) return NotFound();
 
-            int keyOfFriendToAdd = Request.GetKeyValue<int>(link);
+            var keyOfFriendToAdd = Request.GetKeyValue<int>(link);
 
             if (currentPerson.Friends.Any(f => f.PersonId == keyOfFriendToAdd))
-            {
-                return BadRequest($"The person with id {key} is already linked to the person with id {keyOfFriendToAdd}");
-            }
+                return BadRequest(
+                    $"The person with id {key} is already linked to the person with id {keyOfFriendToAdd}");
 
             var friendToLinkTo = _ctx.People.FirstOrDefault(f => f.PersonId == keyOfFriendToAdd);
             if (friendToLinkTo == null) return NotFound();
@@ -167,7 +183,8 @@ namespace AirVinyl.API.Controllers
 
         [HttpPut]
         [ODataRoute("People({key})/Friends({relatedKey})/$ref")]
-        public IHttpActionResult UpdateLinkToFriend([FromODataUri] int key, [FromODataUri] int relatedKey, [FromBody] Uri link)
+        public IHttpActionResult UpdateLinkToFriend([FromODataUri] int key, [FromODataUri] int relatedKey,
+            [FromBody] Uri link)
         {
             var currentPerson = _ctx.People.Include(p => p.Friends).FirstOrDefault(p => p.PersonId == key);
             if (currentPerson == null) return NotFound();
@@ -175,12 +192,11 @@ namespace AirVinyl.API.Controllers
             var currentFriend = _ctx.People.Include(p => p.Friends).FirstOrDefault(p => p.PersonId == relatedKey);
             if (currentFriend == null) return NotFound();
 
-            int keyOfFriendToAdd = Request.GetKeyValue<int>(link);
+            var keyOfFriendToAdd = Request.GetKeyValue<int>(link);
 
             if (currentPerson.Friends.Any(f => f.PersonId == keyOfFriendToAdd))
-            {
-                return BadRequest($"The person with id {key} is already linked to the person with id {keyOfFriendToAdd}");
-            }
+                return BadRequest(
+                    $"The person with id {key} is already linked to the person with id {keyOfFriendToAdd}");
 
             var friendToLinkTo = _ctx.People.FirstOrDefault(f => f.PersonId == keyOfFriendToAdd);
             if (friendToLinkTo == null) return NotFound();

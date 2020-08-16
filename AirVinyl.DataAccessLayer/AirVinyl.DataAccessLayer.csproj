@@ -50,7 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AirVinylDbContext.cs" />
-    <Compile Include="AirVinylDBInitializer.cs" />
+    <Compile Include="AirVinylDbInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

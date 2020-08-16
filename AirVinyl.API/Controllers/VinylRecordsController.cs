@@ -16,6 +16,7 @@ namespace AirVinyl.API.Controllers
         {
             return Ok(_ctx.VinylRecords);
         }
+
         [HttpGet]
         [ODataRoute("VinylRecords({key})")]
         public IHttpActionResult GetOneVinylRecord([FromODataUri] int key)
