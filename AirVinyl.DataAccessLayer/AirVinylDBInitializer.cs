@@ -6,7 +6,7 @@ using AirVinyl.Model;
 namespace AirVinyl.DataAccessLayer
 {
     // Note: to avoid recreation of the DB, use DropCreateDatabaseIfModelChanges<AirVinylDbContext>  
-    public class AirVinylDbInitializer : CreateDatabaseIfNotExists<AirVinylDbContext>
+    public class AirVinylDbInitializer : DropCreateDatabaseIfModelChanges<AirVinylDbContext>
     {
         protected override void Seed(AirVinylDbContext context)
         {
