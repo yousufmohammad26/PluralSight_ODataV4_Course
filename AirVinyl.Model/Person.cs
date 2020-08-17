@@ -25,7 +25,6 @@ namespace AirVinyl.Model
 
         public ICollection<Person> Friends { get; set; }
 
-        [Contained]
-        public ICollection<VinylRecord> VinylRecords { get; set; }
+        [Contained] public ICollection<VinylRecord> VinylRecords { get; set; }
     }
 }
