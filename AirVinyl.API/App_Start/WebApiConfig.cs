@@ -1,7 +1,7 @@
 ﻿using System.Web.Http;
-using System.Web.OData.Builder;
-using System.Web.OData.Extensions;
 using AirVinyl.Model;
+using Microsoft.AspNet.OData.Builder;
+using Microsoft.AspNet.OData.Extensions;
 using Microsoft.OData.Edm;
 
 namespace AirVinyl.API
@@ -20,7 +20,7 @@ namespace AirVinyl.API
             var builder = new ODataConventionModelBuilder {Namespace = "AirVinyl", ContainerName = "AirVinylContainer"};
 
             builder.EntitySet<Person>("People");
-            builder.EntitySet<VinylRecord>("VinylRecords");
+            //builder.EntitySet<VinylRecord>("VinylRecords");
             builder.EntitySet<RecordStore>("RecordStores");
             return builder.GetEdmModel();
         }

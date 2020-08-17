@@ -4,12 +4,12 @@ using System.Net.Http;
 using System.Reflection;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.OData.Routing;
 using System.Web.Http.Routing;
-using System.Web.OData;
-using System.Web.OData.Extensions;
-using System.Web.OData.Routing;
-using Microsoft.OData.Core;
-using Microsoft.OData.Core.UriParser;
+using Microsoft.AspNet.OData;
+using Microsoft.AspNet.OData.Extensions;
+using Microsoft.OData;
+using ODataPath = Microsoft.AspNet.OData.Routing.ODataPath;
 
 namespace AirVinyl.API.Helpers
 {

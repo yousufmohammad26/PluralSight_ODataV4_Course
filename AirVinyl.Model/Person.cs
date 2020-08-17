@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNet.OData.Builder;
 
 namespace AirVinyl.Model
 {
@@ -24,6 +25,7 @@ namespace AirVinyl.Model
 
         public ICollection<Person> Friends { get; set; }
 
+        [Contained]
         public ICollection<VinylRecord> VinylRecords { get; set; }
     }
 }

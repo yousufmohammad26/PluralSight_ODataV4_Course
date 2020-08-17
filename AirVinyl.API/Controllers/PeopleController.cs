@@ -3,11 +3,11 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Http;
-using System.Web.OData;
-using System.Web.OData.Routing;
 using AirVinyl.API.Helpers;
 using AirVinyl.DataAccessLayer;
 using AirVinyl.Model;
+using Microsoft.AspNet.OData;
+using Microsoft.AspNet.OData.Routing;
 
 namespace AirVinyl.API.Controllers
 {
@@ -24,10 +24,6 @@ namespace AirVinyl.API.Controllers
         [EnableQuery]
         public IHttpActionResult Get([FromODataUri] int key)
         {
-            //var person = _ctx.People.Include(p => p.Friends).Include(p => p.VinylRecords).FirstOrDefault(p => p.PersonId == key);
-            //if (person == null) return NotFound();
-            //return Ok(person);
-
             var people = _ctx.People.Where(p => p.PersonId == key);
             if (people.Any() == false) return NotFound();
 
@@ -51,18 +47,32 @@ namespace AirVinyl.API.Controllers
             var propertyValue = person.GetValue(propertyToGet);
             if (propertyValue == null) return StatusCode(HttpStatusCode.NoContent);
 
-            return this.CreateOKHttpActionResult(propertyValue);
+            return Created(propertyValue);
         }
 
         [HttpGet]
-        [ODataRoute("People({key})/VinylRecords")]
         [EnableQuery]
+        [ODataRoute("People({key})/VinylRecords")]
         public IHttpActionResult GetVinylRecordsForPerson([FromODataUri] int key)
         {
             var person = _ctx.People.FirstOrDefault(p => p.PersonId == key);
             if (person == null) return NotFound();
 
             return Ok(_ctx.VinylRecords.Where(v => v.Person.PersonId == key));
+        }
+
+        [HttpGet]
+        [EnableQuery]
+        [ODataRoute("People({key})/VinylRecords({vinylRecordKey})")]
+        public IHttpActionResult GetVinylRecordForPerson([FromODataUri] int key, [FromODataUri] int vinylRecordKey)
+        {
+            var person = _ctx.People.FirstOrDefault(p => p.PersonId == key);
+            if (person == null) return NotFound();
+
+            var vinylRecords = _ctx.VinylRecords.Where(v => v.Person.PersonId == key && v.VinylRecordId == vinylRecordKey);
+            if (vinylRecords.Any() == false) return NotFound();
+
+            return Ok(SingleResult.Create(vinylRecords));
         }
 
         [HttpGet]
@@ -80,7 +90,7 @@ namespace AirVinyl.API.Controllers
 
             var collectionPropertyValue = person.GetValue(collectionPropertyToGet);
 
-            return this.CreateOKHttpActionResult(collectionPropertyValue);
+            return Created(collectionPropertyValue);
         }
 
         [HttpGet]
@@ -101,7 +111,7 @@ namespace AirVinyl.API.Controllers
             var propertyValue = person.GetValue(propertyToGet);
             if (propertyValue == null) return StatusCode(HttpStatusCode.NoContent);
 
-            return this.CreateOKHttpActionResult(propertyValue.ToString());
+            return Created(propertyValue.ToString());
         }
 
         public IHttpActionResult Post(Person person)

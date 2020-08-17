@@ -1,9 +1,9 @@
 ﻿using System.Linq;
 using System.Web.Http;
-using System.Web.OData;
-using System.Web.OData.Routing;
 using AirVinyl.API.Helpers;
 using AirVinyl.DataAccessLayer;
+using Microsoft.AspNet.OData;
+using Microsoft.AspNet.OData.Routing;
 
 namespace AirVinyl.API.Controllers
 {
