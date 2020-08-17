@@ -15,10 +15,10 @@ namespace AirVinyl.API.Controllers
     {
         private readonly AirVinylDbContext _ctx = new AirVinylDbContext();
 
-        [EnableQuery(MaxExpansionDepth = 3, MaxSkip = 10, MaxTop = 5, PageSize = 4)]
+        [EnableQuery]
         public IHttpActionResult Get()
         {
-            return Ok(_ctx.People);
+            return Ok(_ctx.People.AsQueryable());
         }
 
         [EnableQuery]
@@ -70,7 +70,10 @@ namespace AirVinyl.API.Controllers
             if (person == null) return NotFound();
 
             var vinylRecords =
-                _ctx.VinylRecords.Where(v => v.Person.PersonId == key && v.VinylRecordId == vinylRecordKey);
+                _ctx.VinylRecords
+                    .Include(v => v.DynamicVinylRecordProperties)
+                    .Where(v => v.Person.PersonId == key && v.VinylRecordId == vinylRecordKey);
+
             if (vinylRecords.Any() == false) return NotFound();
 
             return Ok(SingleResult.Create(vinylRecords));
@@ -104,7 +107,10 @@ namespace AirVinyl.API.Controllers
             if (person == null) return NotFound();
 
             var currentVinylRecord =
-                _ctx.VinylRecords.FirstOrDefault(v => v.Person.PersonId == key && v.VinylRecordId == vinylRecordKey);
+                _ctx.VinylRecords
+                    .Include(v => v.DynamicVinylRecordProperties)
+                    .FirstOrDefault(v => v.Person.PersonId == key && v.VinylRecordId == vinylRecordKey);
+
             if (currentVinylRecord == null) return NotFound();
 
             patch.Patch(currentVinylRecord);
